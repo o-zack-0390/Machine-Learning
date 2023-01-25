@@ -2,11 +2,10 @@
 
 def wakachi(text):
 
-#	��ނ�I�� : '-O wakati' , 
+#	分かち書き : '-O wakati' , 
 	tagger = MeCab.Tagger(r'-Owakati -d "/usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd"')
 	
 	try:
-#		�`�ԑf��͂̌��ʂ���
 		res = tagger.parse(text.strip())
 		
 	except:
@@ -22,7 +21,7 @@ line = f1.readline()
 
 while line:
 	line += line.strip()  
-	line = line.replace(',', '�A')  
+	line = line.replace(',', '、')  
 	line = line.replace('\t', '') 
 	line = wakachi(line)
 	line = line.replace("\n",'')

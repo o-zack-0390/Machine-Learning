@@ -8,7 +8,7 @@ char	*VecN, **MatN;
 int		Dm, Dn, *VecI, *VecJ; 
 
 
-/* doc.txt����P����L�^ */
+/* doc.txt */
 void    readValue(char *fn1)
 {
 	FILE		*fp;
@@ -47,7 +47,7 @@ void	mySort(int *ip, int n)
 	for(i = 0; i < n; i++) ip[i] = VecJ[i]; 
 }
 
-/* wid.txt�ɒP�ꎫ����o�^ */
+/* wid.txt */
 void	printValue(char *fn1)
 {
 	FILE	*fp;
@@ -73,7 +73,6 @@ int		main(int argc, char **argv)
 }
 
 /*
-���s�R�}���h
 gcc mkwid.c -lm -o mkwid
 mkwid.exe data/wakachi.txt data/wid.txt
 */

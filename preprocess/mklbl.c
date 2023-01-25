@@ -7,7 +7,7 @@
 char	*VecN, **MatM; 
 int		Dm, Dn, *VecA, **MatA, *VecS, *VecT; 
 
-/* wid.txt を呼び出し内容を記録する*/
+/* wid.txt */
 void    readValue0(char *fn1)
 {
 	FILE		*fp;
@@ -44,7 +44,7 @@ int		mySearch(char *np, int b, int e)
 	else return(mySearch(np, c+1, e));
 }
 
-/* wakachi.txt を呼び出し内容を記録する */
+/* wakachi.txt */
 void	readValue1(char *fn1)
 {
 	FILE	*fp;
@@ -75,7 +75,7 @@ void	readValue1(char *fn1)
 	printf("%d\n", i);
 }
 
-/* 各単語に対応する単語番号を lbl.txt に登録 */
+/* lbl.txt */
 void	printValue(char *fn1)
 {
 	FILE	*fp;
@@ -113,7 +113,6 @@ int	main(int argc, char **argv)
 }
 
 /*
-実行コマンド
 gcc mklbl.c -lm -o mklbl
 mklbl.exe data/wid.txt data/wakachi.txt data/lbl.txt
 */
