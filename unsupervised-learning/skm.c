@@ -6,7 +6,7 @@
 #include <time.h>
 
 char   **MatN, *VecN; 
-int	     N, M, K, *VecA, **MatA, *VecC, *VecE, *VecF;
+int      N, M, K, *VecA, **MatA, *VecC, *VecE, *VecF;
 double **MatX, *VecV, *VecW, **MatW, **MatM;
 
 /* 引数はlbl.txt */
@@ -49,8 +49,8 @@ void readValue(char *fn1)
 /* 引数はwid.txt */
 void readName(char *fn1)
 {
-	FILE	*fp;
-	int		i, j, k;
+	FILE *fp;
+	int   i, j, k;
 	
 	if((fp = fopen(fn1, "r")) == NULL)
 	{
@@ -94,7 +94,7 @@ void readName(char *fn1)
 
 void initData()
 {
-	int	   i, j, k, h;
+	int    i, j, k, h;
 	double v;
 	VecW = (double *) malloc(sizeof(double)*M);
 	
@@ -171,7 +171,7 @@ void initData()
 
 int	calValue(double *val)
 {
-	int	   f, g, h, i, j, k;
+	int    f, g, h, i, j, k;
 	double w, max;
 	
 	for(k = 0; k < K; k++)
@@ -256,8 +256,8 @@ int	calValue(double *val)
 void printValue(char *fn1)
 {
 	FILE	*fp;
-	int		h, i, j, k, s;
-	double	v, w; 
+	int     h, i, j, k, s;
+	double  v, w; 
 	
 	for(k = 0; k < K; k++) 
 		VecE[k] = 0; 
@@ -311,7 +311,7 @@ void printValue2(char *fn1)
 
 int main(int argc, char **argv)
 {
-	int	   i;
+	int    i;
 	double v;
 	
 	K = atoi(argv[1]);//9
