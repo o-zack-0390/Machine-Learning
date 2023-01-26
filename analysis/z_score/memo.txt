@@ -1,0 +1,35 @@
+手順1
+
+zsc.c   実行パス → ./zsc.exe data/lbl.txt data/new_uid.txt 10 data/wid.txt data/important_word.txt
+
+lbl.txt, new_uid.txt からimportantword.txtを作成
+
+(間違えたファイルから重要語を取得)
+
+-------------------------------------------------------------------
+
+手順2
+
+wordnet.py
+
+importantword.txt から up_entity.txtを作成
+
+(重要語上位100個の上位語を取得)
+
+-------------------------------------------------------------------
+
+手順3
+
+def_category.py
+
+up_entity.txt から def_category.txtを作成
+
+(間違えたファイルのカテゴリー名を決定)
+
+------------------------------------------------------------------
+
+手順4
+
+def_category.txtから出現頻度が高い上位語をカテゴリー名にする
+
+「girl」と「be」が候補になった
