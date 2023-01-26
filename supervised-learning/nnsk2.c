@@ -3,17 +3,17 @@
 #include	<math.h>
 
 char   **MatN;
-int	     N, V, C, K, *VecA, **MatA, *VecB, **MatB, *VecC, **MatQ;
+int   N, V, C, K, *VecA, **MatA, *VecB, **MatB, *VecC, **MatQ;
 double **MatX, **MatY, *VecW, *VecZ;
 
-/*lbl.txt‚Ì“à—e‚ð‹L˜^‚·‚é*/
+/*lbl.txtï¿½Ì“ï¿½ï¿½eï¿½ï¿½ï¿½Lï¿½^ï¿½ï¿½ï¿½ï¿½*/
 void readValue(char *fn1)
 {
 	FILE   *fp;
 	int    i, j, k;
 	double v;
 /*-----------------------------------------------------------------------------------*/	
-//	ƒtƒ@ƒCƒ‹‚ª–³‚¢ê‡‚ÍˆÙíI—¹‚·‚é
+//	ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ÍˆÙï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if((fp = fopen(fn1, "r")) == NULL)
 	{ 
 		printf("Unknown File = %s\n", fn1); 
@@ -21,30 +21,30 @@ void readValue(char *fn1)
 	}
 	fscanf(fp, "%d %d %d", &N, &V, &C); 
 /*	
-	ˆÈ‰º‚Ì”’l‚ð“ü—Í‚·‚é
-	•¶‘” : 7367 ’PŒê” : 75024  ƒJƒeƒSƒŠ[” : 1
+	ï¿½È‰ï¿½ï¿½Ìï¿½ï¿½lï¿½ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : 7367 ï¿½Pï¿½ê” : 75024  ï¿½Jï¿½eï¿½Sï¿½ï¿½ï¿½[ï¿½ï¿½ : 1
 	
-	fscanf(‘æˆêˆø”,‘æ“ñˆø”,‘æŽOˆø”)
+	fscanf(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½)
 	
-	‘æˆêˆø” : “Ç‚ÝŽæ‚éƒtƒ@ƒCƒ‹
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Ç‚ÝŽï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½
 	
-	‘æ“ñˆø” : ‚Ç‚ñ‚ÈŒ^‚Å“Ç‚Ýž‚Þ‚©
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Ç‚ï¿½ÈŒ^ï¿½Å“Ç‚Ýï¿½ï¿½Þ‚ï¿½
 	
-	‘æŽOˆø” : ‘æ“ñˆø”‚ð‘ã“ü‚·‚é•Ï”
+	ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½
 	
 /*-----------------------------------------------------------------------------------*/	
 	VecA = (int *)     malloc(sizeof(int)*N);
 	MatA = (int **)    malloc(sizeof(int *)*N);
 	MatX = (double **) malloc(sizeof(double *)*N);
 /*	
-	mallocŠÖ”‚Åƒƒ‚ƒŠ‚ð“®“I‚ÉŠ„“–‚Ä‚é
+	mallocï¿½Öï¿½ï¿½Åƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ð“®“Iï¿½ÉŠï¿½ï¿½ï¿½ï¿½Ä‚ï¿½
 	
-	ƒTƒCƒY = intŒ^‚ÌƒTƒCƒY * N / intŒ^‚ÌƒTƒCƒY
+	ï¿½Tï¿½Cï¿½Y = intï¿½^ï¿½ÌƒTï¿½Cï¿½Y * N / intï¿½^ï¿½ÌƒTï¿½Cï¿½Y
 	
-	N ‚Í•¶‘‚Ì”‚Æ‚·‚é
+	N ï¿½Í•ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½Æ‚ï¿½ï¿½ï¿½
 	
 /*-----------------------------------------------------------------------------------*/	
-//	’PŒêID,oŒ»‰ñ”‚ÌŠ„‚è“–‚Ä
+//	ï¿½Pï¿½ï¿½ID,ï¿½oï¿½ï¿½ï¿½ñ”‚ÌŠï¿½ï¿½è“–ï¿½ï¿½
 	for(i = 0; i < N; i++)
 	{
 		fscanf(fp, "%d", &VecA[i]);
@@ -53,7 +53,7 @@ void readValue(char *fn1)
 		
 		for(j = 0; j < VecA[i]; j++)
 		{ 
-//			:‚Ì¶‘¤‚ÍintŒ^,:‚Ì‰E‘¤‚ÍdoubleŒ^‚Å“Ç‚Ýž‚Þ
+//			:ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½intï¿½^,:ï¿½Ì‰Eï¿½ï¿½ï¿½ï¿½doubleï¿½^ï¿½Å“Ç‚Ýï¿½ï¿½ï¿½
 			fscanf(fp, "%d:%lf", &k, &v); 
 			MatA[i][j] = k-1;
 			MatX[i][j] = v;
@@ -62,47 +62,47 @@ void readValue(char *fn1)
 /*-----------------------------------------------------------------------------------*/	
 
 /*	------------------------------------------------------
-	i ‚ÍˆÈ‰º‚ð–ž‚½‚·Ž©‘R”‚Å‚ ‚é
-	0 <= i <= •¶‘”
+	i ï¿½ÍˆÈ‰ï¿½ï¿½ð–ž‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
+	0 <= i <= ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	VecA[i]‚É‚ÍˆÈ‰º‚Ìƒf[ƒ^‚ðŠi”[‚·‚é
-	VecA[i] : ˆê‚Â‚Ì•¶‘‚Ì’PŒê” EEE (A)
-	
-	------------------------------------------------------
-	j ‚ÍˆÈ‰º‚ð–ž‚½‚·Ž©‘R”‚Å‚ ‚é
-	0 <= j <= VecA‚Ì—v‘f”
-	
-	MatA[i][j], MatX[i][j]‚ÍŽŸ‚Ì‚æ‚¤‚É’è‹`‚·‚é
-	MatA[i][j] : ˆê‚Â‚Ì•¶‘‚ÉoŒ»‚·‚éˆê‚Â‚Ì’PŒê‚Ì’PŒêID EEE (B)
-	MatX[i][j] : MatA[i][j]‚ÌoŒ»‰ñ”
-	
-	(A),(B)‚æ‚èAVecA‚Ì—v‘f” == j‚Ì—v‘f” ‚Å‚ ‚é
+	VecA[i]ï¿½É‚ÍˆÈ‰ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½
+	VecA[i] : ï¿½ï¿½Â‚Ì•ï¿½ï¿½ï¿½ï¿½Ì’Pï¿½ê” ï¿½Eï¿½Eï¿½E (A)
 	
 	------------------------------------------------------
-	—á : •¶‘” == 7367, Å‰‚Ì•¶‘‚É‚ ‚é’PŒê” == 177 ‚Ìê‡
+	j ï¿½ÍˆÈ‰ï¿½ï¿½ð–ž‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
+	0 <= j <= VecAï¿½Ì—vï¿½fï¿½ï¿½
 	
-	MatA[i], MatX[i]‚É‚¨‚¯‚éi‚Ì”ÍˆÍ       : 0 ` 7366
-	MatA[i][j], MatX[i][j]‚É‚¨‚¯‚éj‚Ì”ÍˆÍ : 0 ` 176
+	MatA[i][j], MatX[i][j]ï¿½ÍŽï¿½ï¿½Ì‚æ‚¤ï¿½É’ï¿½`ï¿½ï¿½ï¿½ï¿½
+	MatA[i][j] : ï¿½ï¿½Â‚Ì•ï¿½ï¿½ï¿½ï¿½Éoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‚Ì’Pï¿½ï¿½Ì’Pï¿½ï¿½ID ï¿½Eï¿½Eï¿½E (B)
+	MatX[i][j] : MatA[i][j]ï¿½Ìoï¿½ï¿½ï¿½ï¿½
+	
+	(A),(B)ï¿½ï¿½ï¿½AVecAï¿½Ì—vï¿½fï¿½ï¿½ == jï¿½Ì—vï¿½fï¿½ï¿½ ï¿½Å‚ï¿½ï¿½ï¿½
 	
 	------------------------------------------------------
-	k,v ‚ÉŽŸ‚Ì’l‚ðŠi”[‚·‚é
+	ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ == 7367, ï¿½Åï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½Pï¿½ê” == 177 ï¿½Ìê‡
 	
-	k = ’PŒêID
-	v = oŒ»‰ñ”
+	MatA[i], MatX[i]ï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½Ì”Íˆï¿½       : 0 ï¿½` 7366
+	MatA[i][j], MatX[i][j]ï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½Ì”Íˆï¿½ : 0 ï¿½` 176
+	
+	------------------------------------------------------
+	k,v ï¿½ÉŽï¿½ï¿½Ì’lï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½
+	
+	k = ï¿½Pï¿½ï¿½ID
+	v = ï¿½oï¿½ï¿½ï¿½ï¿½
 	
 	-------------------------------------------------------
-	—á : ’PŒêID == 47618, oŒ»‰ñ” == 6 ‚Ìê‡
+	ï¿½ï¿½ : ï¿½Pï¿½ï¿½ID == 47618, ï¿½oï¿½ï¿½ï¿½ï¿½ == 6 ï¿½Ìê‡
 	
 	k = 47618
 	v = 6
 	
 	-------------------------------------------------------
-	]‚Á‚ÄAˆê‚Â‚Ì”CˆÓ‚Ì’PŒê‚ðword‚Æ‚·‚é‚ÆAMatA,MatX‚É‚ÍŽŸ‚Ì’l‚ªŠi”[‚³‚ê‚é
+	ï¿½]ï¿½ï¿½ï¿½ÄAï¿½ï¿½Â‚Ì”Cï¿½Ó‚Ì’Pï¿½ï¿½ï¿½wordï¿½Æ‚ï¿½ï¿½ï¿½ÆAMatA,MatXï¿½É‚ÍŽï¿½ï¿½Ì’lï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	MatA[i][j] = word‚Ì’PŒêID
-	MatX[i][j] = word‚ÌoŒ»‰ñ” EEE (C)
+	MatA[i][j] = wordï¿½Ì’Pï¿½ï¿½ID
+	MatX[i][j] = wordï¿½Ìoï¿½ï¿½ï¿½ï¿½ ï¿½Eï¿½Eï¿½E (C)
 	
-	(C)‚æ‚èA MatX ‚Í TF-IDF ‚Ì TF ‚Å‚ ‚é
+	(C)ï¿½ï¿½ï¿½A MatX ï¿½ï¿½ TF-IDF ï¿½ï¿½ TF ï¿½Å‚ï¿½ï¿½ï¿½
 	
 	-------------------------------------------------------
 */
@@ -111,7 +111,7 @@ void readValue(char *fn1)
 }
 
 
-/*uid.txt‚Ì“à—e‚ð“Ç‚Ýž‚Þ*/
+/*uid.txtï¿½Ì“ï¿½ï¿½eï¿½ï¿½Ç‚Ýï¿½ï¿½ï¿½*/
 void readName(char *fn1)
 {
 	FILE	*fp;
@@ -124,7 +124,7 @@ void readName(char *fn1)
 		exit(1);
 	}
 /*-----------------------------------------------------------------------------------*/	
-//	”z—ñ‚ÌƒTƒCƒY‚ðŠ„‚è“–‚Ä‚é(N‚Í•¶‘”)
+//	ï¿½zï¿½ï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½è“–ï¿½Ä‚ï¿½(Nï¿½Í•ï¿½ï¿½ï¿½ï¿½ï¿½)
 	VecC = (int *)   malloc(sizeof(int)*N);
 	MatN = (char **) malloc(sizeof(char *)*N);
 	
@@ -132,8 +132,8 @@ void readName(char *fn1)
 	for(i = 0; i < N; i++){
 		fscanf(fp, "%d ", &VecC[i]);
 /*		
-		VecC‚É‚ÍƒJƒeƒSƒŠ[”Ô†1`8‚ªŠi”[‚³‚ê‚é
-		ˆÈ‰º‚ÉƒJƒeƒSƒŠ[‚ÆƒJƒeƒSƒŠ[”Ô†‚Ì‘Î‰ž‚ðŽ¦‚·
+		VecCï¿½É‚ÍƒJï¿½eï¿½Sï¿½ï¿½ï¿½[ï¿½Ôï¿½1ï¿½`8ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½
+		ï¿½È‰ï¿½ï¿½ÉƒJï¿½eï¿½Sï¿½ï¿½ï¿½[ï¿½ÆƒJï¿½eï¿½Sï¿½ï¿½ï¿½[ï¿½Ôï¿½ï¿½Ì‘Î‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		1 dokujo-tsushin
 		2 it-life-hack
@@ -153,13 +153,13 @@ void readName(char *fn1)
 		}
 		MatN[i][j] = '\0'; 
 /*		
-		i,j ‚ÍˆÈ‰º‚ð–ž‚½‚·Ž©‘R”‚Å‚ ‚é
+		i,j ï¿½ÍˆÈ‰ï¿½ï¿½ð–ž‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
 		0 <= i <= 7367
 		0 <= j <= 8192
 		
-		MatN ‚É‚ÍˆÈ‰º‚Ìƒf[ƒ^‚ðŠi”[‚·‚é
-		MatN[i]    : ƒtƒ@ƒCƒ‹–¼
-		MatN[i][j] : ƒtƒ@ƒCƒ‹–¼‚Ìˆê•¶Žš
+		MatN ï¿½É‚ÍˆÈ‰ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½
+		MatN[i]    : ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½
+		MatN[i][j] : ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ìˆê•¶ï¿½ï¿½
 */
 	}
 /*-----------------------------------------------------------------------------------*/	
@@ -172,14 +172,14 @@ void initData()
 {
 	int	i, j;
 /*------------------------------------------------------------------------*/	
-//	”z—ñ‚ÌƒTƒCƒY‚ðŠ„‚è“–‚Ä‚é
+//	ï¿½zï¿½ï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½è“–ï¿½Ä‚ï¿½
 	VecB = (int *)     malloc(sizeof(int)*V);
 	MatB = (int **)    malloc(sizeof(int *)*V);
 	MatY = (double **) malloc(sizeof(double *)*V);
 	
 /*	
-	V‚Í‘S•¶‘‚Ì‘’PŒê”‚Å‚ ‚èAreadValue“à‚Åˆ—‚³‚ê‚Ä‚¢‚éB
-	ƒ|ƒCƒ“ƒ^‚Åˆ—‚µ‚Ä‚¢‚é‚Ì‚Å‚Ç‚ÌŠÖ”‚©‚ç‚Å‚àŽQÆ‰Â”\‚Å‚ ‚éB
+	Vï¿½Í‘Sï¿½ï¿½ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½Pï¿½ê”ï¿½Å‚ï¿½ï¿½ï¿½AreadValueï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½B
+	ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ì‚Å‚Ç‚ÌŠÖï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½Qï¿½Æ‰Â”\ï¿½Å‚ï¿½ï¿½ï¿½B
 */
 	
 /*------------------------------------------------------------------------*/
@@ -191,18 +191,18 @@ void initData()
 			VecB[MatA[i][j]]++;
 	}
 	 
-/*	ŒJ‚è•Ô‚µðŒ
+/*	ï¿½Jï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	    i < N ‚©‚Â j < VecA[i] ‚Ìê‡
-	               «
-	i < •¶‘”  ‚©‚Â j < ˆê‚Â‚Ì•¶Í‚Ì’PŒê” ‚Ìê‡
-	               «
-	         VecB[’PŒêID]‚É1‰ÁŽZ 
+	    i < N ï¿½ï¿½ï¿½ï¿½ j < VecA[i] ï¿½Ìê‡
+	               ï¿½ï¿½
+	i < ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ j < ï¿½ï¿½Â‚Ì•ï¿½ï¿½Í‚Ì’Pï¿½ê” ï¿½Ìê‡
+	               ï¿½ï¿½
+	         VecB[ï¿½Pï¿½ï¿½ID]ï¿½ï¿½1ï¿½ï¿½ï¿½Z 
 		   
-	VecB : ˆê‚Â‚Ì”CˆÓ‚Ì’PŒê‚ª‰½ŒÂ‚Ì•¶Í‚ÉoŒ»‚·‚é‚Ì‚©‚ð‹L˜^‚·‚é
+	VecB : ï¿½ï¿½Â‚Ì”Cï¿½Ó‚Ì’Pï¿½ê‚ªï¿½ï¿½ï¿½Â‚Ì•ï¿½ï¿½Í‚Éoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½Lï¿½^ï¿½ï¿½ï¿½ï¿½
 	
 /*------------------------------------------------------------------------*/
-// 	MatB,MatY‚Ì—v‘f‚Éƒƒ‚ƒŠ‚ðŠ„‚è“–‚Ä‚é
+// 	MatB,MatYï¿½Ì—vï¿½fï¿½Éƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è“–ï¿½Ä‚ï¿½
 	for(j = 0; j < V; j++){ 
 		MatB[j] = (int *)    malloc(sizeof(int)*VecB[j]); 
 		MatY[j] = (double *) malloc(sizeof(double)*VecB[j]); 
@@ -216,21 +216,21 @@ void initData()
 		VecC[i]--; 
 	}
 	
-//	MatQ‚Éƒƒ‚ƒŠ‚ðŠ„‚è“–‚Ä‚é
+//	MatQï¿½Éƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è“–ï¿½Ä‚ï¿½
 	MatQ = (int **) malloc(sizeof(int *)*C);
 	for(i = 0; i < C; i++){ 
 		MatQ[i] = (int *) malloc(sizeof(int)*C); 
 		for(j = 0; j < C; j++) MatQ[i][j] = 0; 
 	}
 	
-//	VecW, VecZ‚Éƒƒ‚ƒŠ‚ðŠ„‚è“–‚Ä‚é
+//	VecW, VecZï¿½Éƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è“–ï¿½Ä‚ï¿½
 	VecW = (double *) malloc(sizeof(double)*V);
 	VecZ = (double *) malloc(sizeof(double)*N);
 /*-------------------------------------------------------------------------*/	
 }
 
 
-/*TF-IDF‚ðŒvŽZ‚·‚é*/
+/*TF-IDFï¿½ï¿½ï¿½vï¿½Zï¿½ï¿½ï¿½ï¿½*/
 void calTFIDF(char *fn1)
 {
 	int	   i, j;
@@ -239,70 +239,70 @@ void calTFIDF(char *fn1)
 	fp1 = fopen(fn1, "w"); 
 	
 /*------------------------------------------------------------------------*/
-//	IDF ‚ÌŒvŽZ
+//	IDF ï¿½ÌŒvï¿½Z
 	for(j = 0, v = log(1.0*N); j < V; j++) 
 		VecW[j] = v;
 	
 	for(j = 0; j < V; j++) 
 		VecW[j] -= log(1.0*VecB[j]);
 /*	
-	VecW[j]‚Élog(1.0*N)‚ð‘ã“ü
-	         «
-	j < v ‚Ìê‡
-	VecW[j]‚©‚çlog(1.0*VecB)‚ðŒ¸ŽZ
+	VecW[j]ï¿½ï¿½log(1.0*N)ï¿½ï¿½ï¿½ï¿½
+	         ï¿½ï¿½
+	j < v ï¿½Ìê‡
+	VecW[j]ï¿½ï¿½ï¿½ï¿½log(1.0*VecB)ï¿½ï¿½ï¿½ï¿½ï¿½Z
 	
-	log‚ÌŠ„ŽZ‚ðAŒ¸ŽZ‚ðŒJ‚è•Ô‚·‚±‚Æ‚ÅŽÀŒ»‚µ‚Ä‚¢‚é
-	IDF = log(1.0*N) / ’PŒêword‚ÌoŒ»‰ñ”
+	logï¿½ÌŠï¿½ï¿½Zï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½Jï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½Æ‚ÅŽï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+	IDF = log(1.0*N) / ï¿½Pï¿½ï¿½wordï¿½Ìoï¿½ï¿½ï¿½ï¿½
 */
 /*------------------------------------------------------------------------*/
 	int z, count = 0;
 	
-//	‘S•¶‘‚ÌƒRƒTƒCƒ“—ÞŽ—“x‚ðŒvŽZ(‚±‚±‚ÌŒvŽZ‚ðFX‚¢‚¶‚Á‚ÄŒ¤‹†•ñ‚·‚é ¨ •¶‘•ª—Þ‚É“K‚µ‚½ŒvŽZ•û–@‚ð•ªÍ‚·‚é)
+//	ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½ÌƒRï¿½Tï¿½Cï¿½ï¿½ï¿½ÞŽï¿½ï¿½xï¿½ï¿½ï¿½vï¿½Z(ï¿½ï¿½ï¿½ï¿½ï¿½ÌŒvï¿½Zï¿½ï¿½Fï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄŒï¿½ï¿½ï¿½ï¿½ñ‚ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ‚É“Kï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Zï¿½ï¿½ï¿½@ï¿½ð•ªÍ‚ï¿½ï¿½ï¿½)
 	for(i = 0; i < N; i++)
 	{
-//		TF-IDF ‚ÌŒvŽZ
+//		TF-IDF ï¿½ÌŒvï¿½Z
 		for(j = 0; j < VecA[i]; j++) 
 			MatX[i][j] *= VecW[MatA[i][j]];
 /*		
-		j < ˆê‚Â‚Ì•¶‘’†‚Ì’PŒê” ‚Ìê‡
-		MatX[i][j] ‚É VecW[MatA[i][j]] ‚ðæŽZ
-		              «  
-		    ’PŒê‚ÌoŒ»‰ñ” * VecW[’PŒêID]
-			          «
+		j < ï¿½ï¿½Â‚Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’Pï¿½ê” ï¿½Ìê‡
+		MatX[i][j] ï¿½ï¿½ VecW[MatA[i][j]] ï¿½ï¿½ï¿½ï¿½Z
+		              ï¿½ï¿½  
+		    ï¿½Pï¿½ï¿½Ìoï¿½ï¿½ï¿½ï¿½ * VecW[ï¿½Pï¿½ï¿½ID]
+			          ï¿½ï¿½
 			       TF * IDF    
 		
-		‚±‚ê‚æ‚èAMatX ‚Í TF-IDF ‚Æ‚È‚é
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AMatX ï¿½ï¿½ TF-IDF ï¿½Æ‚È‚ï¿½
 */
 
-//		TF-IDF ‚ð‹L˜^
+//		TF-IDF ï¿½ï¿½ï¿½Lï¿½^
 		fprintf(fp1, "%s ", MatN[i]);
 		for(j = 0; j < VecA[i]; j++) 
 			fprintf(fp1, "%d:%e ", MatA[i][j]+1, MatX[i][j]); 
 		fprintf(fp1, "\n");
 
-//		ŒJ‚è•Ô‚µ(j < ˆê‚Â‚Ì•¶‘’†‚Ì’PŒê”)
+//		ï¿½Jï¿½ï¿½Ô‚ï¿½(j < ï¿½ï¿½Â‚Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’Pï¿½ê”)
 		for(j = 0, v = 0.0; j < VecA[i]; j++) 
 			v += MatX[i][j] * MatX[i][j];
 
-/*		j < ˆê‚Â‚Ì•¶‘’†‚Ì’PŒê” ‚Ü‚ÅŒJ‚è•Ô‚µ
+/*		j < ï¿½ï¿½Â‚Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’Pï¿½ê” ï¿½Ü‚ÅŒJï¿½ï¿½Ô‚ï¿½
 		
-		      v ‚É TF-IDF * TF-IDF ‚ð‰ÁŽZ
-		                 «
+		      v ï¿½ï¿½ TF-IDF * TF-IDF ï¿½ï¿½ï¿½ï¿½ï¿½Z
+		                 ï¿½ï¿½
 		   v = v + MatX[i][j] * MatX[i][j]
 */
 		
-//		ŒJ‚è•Ô‚µ(j < ˆê‚Â‚Ì•¶‘’†‚Ì’PŒê”)
+//		ï¿½Jï¿½ï¿½Ô‚ï¿½(j < ï¿½ï¿½Â‚Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’Pï¿½ê”)
 		for(j = 0, v = 1.0/sqrt(v); j < VecA[i]; j++) 
 			MatX[i][j] *= v;
 
 /*		v = 1.0/sqrt(TF-IDF*TF-IDF)
-		j < ˆê‚Â‚Ì•¶‘’†‚Ì’PŒê” ‚Ìê‡
+		j < ï¿½ï¿½Â‚Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’Pï¿½ê” ï¿½Ìê‡
 		
-		         MatX[i][j](TF-IDF) ‚É v ‚ðæŽZ
-		                  «
+		         MatX[i][j](TF-IDF) ï¿½ï¿½ v ï¿½ï¿½ï¿½ï¿½Z
+		                  ï¿½ï¿½
 		MatX[i][j] = TF-IDF * 1.0/sqrt(TF-IDF*TF-IDF)
-		                ª                    ª
-				    ”CˆÓ‚Ì’PŒê              ‘S‚Ä‚Ì’PŒê
+		                ï¿½ï¿½                    ï¿½ï¿½
+				    ï¿½Cï¿½Ó‚Ì’Pï¿½ï¿½              ï¿½Sï¿½Ä‚Ì’Pï¿½ï¿½
 */
 	}
 /*------------------------------------------------------------------------*/
@@ -314,23 +314,23 @@ void calInverted()
 {
 	int	i, j, k;
 	
-//	ŒJ‚è•Ô‚µ(j < ‘S•¶‘‚Ì‘’PŒê”)
+//	ï¿½Jï¿½ï¿½Ô‚ï¿½(j < ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½Pï¿½ê”)
 	for(j = 0; j < V; j++) 
 		VecB[j] = 0; 
 	
-//	ŒJ‚è•Ô‚µ(i < •¶‘”)
+//	ï¿½Jï¿½ï¿½Ô‚ï¿½(i < ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	for(i = 0; i < N; i++)
 	{
-//		ŒJ‚è•Ô‚µ(j < ”CˆÓ‚Ì•¶‘‚Ì’PŒê”)
+//		ï¿½Jï¿½ï¿½Ô‚ï¿½(j < ï¿½Cï¿½Ó‚Ì•ï¿½ï¿½ï¿½ï¿½Ì’Pï¿½ê”)
 		for(j = 0; j < VecA[i]; j++)
 		{
 			k = MatA[i][j]; 
 			MatB[k][VecB[k]]   = i;
 			MatY[k][VecB[k]++] = MatX[i][j];
 
-/*			k = ’PŒêID
-			MatB[’PŒêID][0] = i
-			MatY[’PŒêID][1] = TF-IDF ‚Ì‰ü—Ç’l
+/*			k = ï¿½Pï¿½ï¿½ID
+			MatB[ï¿½Pï¿½ï¿½ID][0] = i
+			MatY[ï¿½Pï¿½ï¿½ID][1] = TF-IDF ï¿½Ì‰ï¿½ï¿½Ç’l
 */
 		}
 	}
@@ -345,39 +345,39 @@ void calValue(char *fn1, char *fn2)
 	fp1 = fopen(fn1, "w"); 
 	fp2 = fopen(fn2, "w");
 	
-//	•¶‘”‚Ü‚ÅŒJ‚è•Ô‚µ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ÅŒJï¿½ï¿½Ô‚ï¿½
 	for(i = 0; i < N; i++)
 	{
 		w = 0;
 		
-//		•¶‘”‚Ü‚ÅŒJ‚è•Ô‚µ
+//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ÅŒJï¿½ï¿½Ô‚ï¿½
 		for(j = 0; j < N; j++) 
 			VecZ[j] = 0.0; 
 		
-//		ŒJ‚è•Ô‚µ(j < ”CˆÓ‚Ì•¶‘‚Ì’PŒê”)
+//		ï¿½Jï¿½ï¿½Ô‚ï¿½(j < ï¿½Cï¿½Ó‚Ì•ï¿½ï¿½ï¿½ï¿½Ì’Pï¿½ê”)
 		for(j = 0; j < VecA[i]; j++){
 			h = MatA[i][j]; 
 			v = MatX[i][j]; 
-//			h = ’PŒêID; v = TF-IDF ‚Ì‰ü—Ç’l
+//			h = ï¿½Pï¿½ï¿½ID; v = TF-IDF ï¿½Ì‰ï¿½ï¿½Ç’l
 			
-//			ŒJ‚è•Ô‚µ(k < VecB[’PŒêID])
+//			ï¿½Jï¿½ï¿½Ô‚ï¿½(k < VecB[ï¿½Pï¿½ï¿½ID])
 			for(k = 0; k < VecB[h]; k++) 
 				VecZ[MatB[h][k]] += v * MatY[h][k]; 
 /*
-			VecB : ˆê‚Â‚Ì”CˆÓ‚Ì’PŒê‚ª‰½ŒÂ‚Ì•¶Í‚ÉoŒ»‚·‚é‚Ì‚©“o˜^‚³‚ê‚Ä‚¢‚é
-			MatB : i(0 <= i < •¶‘”)‚ª“o˜^‚³‚ê‚Ä‚¢‚é
-			VecZ : ˆê‚Â‚Ì•¶‘’†‚ÌŠe’PŒê‚ÌoŒ»‰ñ” * TF-IDF ‚Ì‰ü—Ç’l‚ð’PŒê”‚Ü‚ÅŒJ‚è•Ô‚µ‰ÁŽZ‚·‚é
-			MatY : TF-IDF ‚Ì‰ü—Ç’l
-			v    : TF-IDF ‚Ì‰ü—Ç’l
+			VecB : ï¿½ï¿½Â‚Ì”Cï¿½Ó‚Ì’Pï¿½ê‚ªï¿½ï¿½ï¿½Â‚Ì•ï¿½ï¿½Í‚Éoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+			MatB : i(0 <= i < ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+			VecZ : ï¿½ï¿½Â‚Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌŠeï¿½Pï¿½ï¿½Ìoï¿½ï¿½ï¿½ï¿½ * TF-IDF ï¿½Ì‰ï¿½ï¿½Ç’lï¿½ï¿½Pï¿½ê”ï¿½Ü‚ÅŒJï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
+			MatY : TF-IDF ï¿½Ì‰ï¿½ï¿½Ç’l
+			v    : TF-IDF ï¿½Ì‰ï¿½ï¿½Ç’l
 			
-			VecZ[MatB[h][k]] += oŒ»‰ñ” * TF-IDF ‚Ì‰ü—Ç’l
+			VecZ[MatB[h][k]] += ï¿½oï¿½ï¿½ï¿½ï¿½ * TF-IDF ï¿½Ì‰ï¿½ï¿½Ç’l
 */
 		}
 		
-//		ŒJ‚è•Ô‚µ(k < 2)
+//		ï¿½Jï¿½ï¿½Ô‚ï¿½(k < 2)
 		for(k = 0; k < K; k++){
 		
-//			ŒJ‚è•Ô‚µ(j < •¶‘”)
+//			ï¿½Jï¿½ï¿½Ô‚ï¿½(j < ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			for(j = h = 0, v = 0.0; j < N; j++)
 			{
 				if(VecZ[j] > v)
@@ -387,16 +387,16 @@ void calValue(char *fn1, char *fn2)
 				}
 			}
 /*
-			VecZ[j] > v ‚Ìê‡ (Šù‘¶‚ÌÅ‘å’l‚æ‚è’l‚ª‘å‚«‚¢)
+			VecZ[j] > v ï¿½Ìê‡ (ï¿½ï¿½ï¿½ï¿½ï¿½ÌÅ‘ï¿½lï¿½ï¿½ï¿½lï¿½ï¿½ï¿½å‚«ï¿½ï¿½)
 			
-			v@‚Ì’l‚ð VecZ[j] ‚É‚·‚é (Å‘å’l‚ðXV)
-			h ‚Ì’l‚ð j ‚·‚é        (•ª—Þæ‚ðj‚É•ÏX)
+			vï¿½@ï¿½Ì’lï¿½ï¿½ VecZ[j] ï¿½É‚ï¿½ï¿½ï¿½ (ï¿½Å‘ï¿½lï¿½ï¿½ï¿½Xï¿½V)
+			h ï¿½Ì’lï¿½ï¿½ j ï¿½ï¿½ï¿½ï¿½        (ï¿½ï¿½ï¿½Þï¿½ï¿½jï¿½É•ÏX)
 */
 			
-//			‹ßŽ—“x‚ª‚‚¢•¶‘‚ðnnsk02.txt‚É‹L˜^
+//			ï¿½ßŽï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nnsk02.txtï¿½É‹Lï¿½^
 			fprintf(fp1, "%d %e %s, ", h+1, v, MatN[h]); 
 			
-//			ƒJƒeƒSƒŠ[•ª—Þ
+//			ï¿½Jï¿½eï¿½Sï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 			if(k > 0) 
 				MatQ[VecC[i]][VecC[h]] += 1; 
 			
@@ -407,12 +407,12 @@ void calValue(char *fn1, char *fn2)
 		}
 		fprintf(fp1, "\n"); 
 		
-//		³‰ðƒ‰ƒxƒ‹‚Æ“¯‚¶ƒJƒeƒSƒŠ[‚É•ª—Þ‚Å‚«‚È‚©‚Á‚½ƒtƒ@ƒCƒ‹‚ðclassification.txt‚É‹L˜^
+//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½Æ“ï¿½ï¿½ï¿½ï¿½Jï¿½eï¿½Sï¿½ï¿½ï¿½[ï¿½É•ï¿½ï¿½Þ‚Å‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½classification.txtï¿½É‹Lï¿½^
 		if(w < 0.5) 
 			fprintf(fp2, "%d %s\n", VecC[i]+1, MatN[i]); 
 	}
 
-//	ƒRƒ“ƒtƒ…[ƒWƒ‡ƒ“ƒ}ƒgƒŠƒNƒX‚ðì¬‚·‚é
+//	ï¿½Rï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½gï¿½ï¿½ï¿½Nï¿½Xï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
 	printf("Confusion matrix\n"); 
 	printf("\t"); 
 	
@@ -433,7 +433,7 @@ void calValue(char *fn1, char *fn2)
 		printf("\n"); 
 	}
 	
-//	³“š—¦‚ðŒvŽZ‚·‚é
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Zï¿½ï¿½ï¿½ï¿½
 	for(k = 0, v = 0.0; k < C; k++) 
 		v += MatQ[k][k]; 
 	
@@ -444,21 +444,21 @@ void calValue(char *fn1, char *fn2)
 
 void main(int argc, char **argv)
 {
-	readValue(argv[1]);			//ˆø”‚Ílbl.txt
-	readName(argv[2]); 			//ˆø”‚Íuid.txt
+	readValue(argv[1]);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lbl.txt
+	readName(argv[2]); 			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uid.txt
 	initData(); 
-	calTFIDF(argv[3]);          //ˆø”‚Ítf-idf.txt
+	calTFIDF(argv[3]);          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tf-idf.txt
 	calInverted(); 
-	K = atoi(argv[4]);			//ˆø”‚Í2
-	calValue(argv[5], argv[6]); //ˆø”‚Ínnsk02.txt, miss_uid.txt
+	K = atoi(argv[4]);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	calValue(argv[5], argv[6]); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nnsk02.txt, miss_uid.txt
 }
 
 /*
-ŽÀsƒRƒ}ƒ“ƒh
+ï¿½ï¿½ï¿½sï¿½Rï¿½}ï¿½ï¿½ï¿½h
 gcc nnsk2.c -lm -o nnsk2
 ./nnsk2.exe data/lbl.txt data/uid.txt result/tf-idf.txt 2 result/nnsk02.txt data/miss_uid.txt
 
-ŽÀsŒ‹‰Ê
+ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
 ./nnsk2.exe data/lbl.txt data/uid.txt result/tf-idf.txt 2 result/nnsk02.txt data/miss_uid.txt
 7367 90859 1
 7367
@@ -475,3 +475,4 @@ Confusion matrix
 8       0.02    0.01    0.01    0.02    0.01    0.02    0.00    0.83    0.08
 9       0.06    0.03    0.08    0.02    0.04    0.03    0.01    0.08    0.66
 Accuracy = 0.80
+*/
