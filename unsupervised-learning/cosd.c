@@ -4,7 +4,7 @@
 #include	<math.h>
 #include	<unistd.h>
 
-int	     Dm, Dn, Dc, *VecA, **MatA, *VecX, *VecY, *VecB, **MatB, *VecC, *VecD;
+int      Dm, Dn, Dc, *VecA, **MatA, *VecX, *VecY, *VecB, **MatB, *VecC, *VecD;
 double **MatX, **MatY, *VecW, *VecZ, **MatE;
 
 
