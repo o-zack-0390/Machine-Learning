@@ -1,4 +1,4 @@
-/*ŒQ•½‹Ï–@ ƒEƒH[ƒh–@*/
+/*ç¾¤å¹³å‡æ³• ã‚¦ã‚©ãƒ¼ãƒ‰æ³•*/
 #include	<stdio.h>
 #include	<stdlib.h>
 #include	<math.h>
@@ -8,11 +8,11 @@ int	     Dm, Dn, Dc, *VecA, **MatA, *VecX, *VecY, *VecB, **MatB, *VecC, *VecD;
 double **MatX, **MatY, *VecW, *VecZ, **MatE;
 
 
-/* ˆø”‚Ílbl.txt */
+/* å¼•æ•°ã¯lbl.txt */
 void readValue(char *fn1)
 {
 	FILE *fp;
-	int	  i, j, k, h;
+	int   i, j, k, h;
 	
 	if((fp = fopen(fn1, "r")) == NULL){ 
 		printf("Unknown File = %s\n", fn1); 
@@ -42,11 +42,11 @@ void readValue(char *fn1)
 }
 
 
-/* ˆø”‚Ícls010v1.txt */
+/* å¼•æ•°ã¯cls010v1.txt */
 void readValue2(char *fn1)
 {
 	FILE *fp;
-	int	  i;
+	int   i;
 	
 	if((fp = fopen(fn1, "r")) == NULL){ 
 		printf("Unknown File = %s\n", fn1); 
@@ -66,7 +66,7 @@ void readValue2(char *fn1)
 
 double	calValue(int x, int y)
 {
-	int	   k;
+	int    k;
 	double s, u, v, w; 
 	
 	for(k = 0, u = v = w = 0.0; k < Dn; k++){ 
@@ -82,7 +82,7 @@ double	calValue(int x, int y)
 
 void initData()
 {
-	int	   h, i, j, k;
+	int    h, i, j, k;
 	double v, w;
 	VecW = (double *) malloc(sizeof(double)*Dn);
 	
@@ -169,7 +169,7 @@ void initData()
 
 void	calMST()
 {
-	int	   i, j, k, x, y; 
+	int    i, j, k, x, y; 
 	double min; 
 	
 	for(i = 0; i < Dm-1; i++)
@@ -220,11 +220,11 @@ void	calMST()
 }
 
 
-/* ˆø”‚Ícos010v1.txt */
+/* å¼•æ•°ã¯cos010v1.txt */
 void printValue(char *fn1)
 {
 	FILE *fp;
-	int	  i;
+	int   i;
 	
 	fp = fopen(fn1, "w");
 	fprintf(fp, "%d %d\n", Dm, Dm-1); 
@@ -247,7 +247,7 @@ int	main(int argc, char **argv)
 }
 
 /*
-ÀsƒpƒX
+å®Ÿè¡Œãƒ‘ã‚¹
 cd reserch\AI\AI_models\ward
 gcc cosd.c -lm -o cosd
 ./cosd data/lbl.txt data/cls010v1.txt result/cos010v1.txt
