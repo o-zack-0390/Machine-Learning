@@ -3,17 +3,17 @@
 #include	<math.h>
 
 char   **MatN;
-int   N, V, C, K, *VecA, **MatA, *VecB, **MatB, *VecC, **MatQ;
+int	     N, V, C, K, *VecA, **MatA, *VecB, **MatB, *VecC, **MatQ;
 double **MatX, **MatY, *VecW, *VecZ;
 
-/*lbl.txt�̓��e���L�^����*/
+/*lbl.txtの内容を記録する*/
 void readValue(char *fn1)
 {
 	FILE   *fp;
 	int    i, j, k;
 	double v;
 /*-----------------------------------------------------------------------------------*/	
-//	�t�@�C���������ꍇ�ُ͈�I������
+//	ファイルが無い場合は異常終了する
 	if((fp = fopen(fn1, "r")) == NULL)
 	{ 
 		printf("Unknown File = %s\n", fn1); 
@@ -21,30 +21,30 @@ void readValue(char *fn1)
 	}
 	fscanf(fp, "%d %d %d", &N, &V, &C); 
 /*	
-	�ȉ��̐��l����͂���
-	������ : 7367 �P�ꐔ : 75024  �J�e�S���[�� : 1
+	以下の数値を入力する
+	文書数 : 7367 単語数 : 75024  カテゴリー数 : 1
 	
-	fscanf(������,������,��O����)
+	fscanf(第一引数,第二引数,第三引数)
 	
-	������ : �ǂݎ��t�@�C��
+	第一引数 : 読み取るファイル
 	
-	������ : �ǂ�Ȍ^�œǂݍ��ނ�
+	第二引数 : どんな型で読み込むか
 	
-	��O���� : ��������������ϐ�
+	第三引数 : 第二引数を代入する変数
 	
 /*-----------------------------------------------------------------------------------*/	
 	VecA = (int *)     malloc(sizeof(int)*N);
 	MatA = (int **)    malloc(sizeof(int *)*N);
 	MatX = (double **) malloc(sizeof(double *)*N);
 /*	
-	malloc�֐��Ń������𓮓I�Ɋ����Ă�
+	malloc関数でメモリを動的に割当てる
 	
-	�T�C�Y = int�^�̃T�C�Y * N / int�^�̃T�C�Y
+	サイズ = int型のサイズ * N / int型のサイズ
 	
-	N �͕����̐��Ƃ���
+	N は文書の数とする
 	
 /*-----------------------------------------------------------------------------------*/	
-//	�P��ID,�o���񐔂̊��蓖��
+//	単語ID,出現回数の割り当て
 	for(i = 0; i < N; i++)
 	{
 		fscanf(fp, "%d", &VecA[i]);
@@ -53,7 +53,7 @@ void readValue(char *fn1)
 		
 		for(j = 0; j < VecA[i]; j++)
 		{ 
-//			:�̍�����int�^,:�̉E����double�^�œǂݍ���
+//			:の左側はint型,:の右側はdouble型で読み込む
 			fscanf(fp, "%d:%lf", &k, &v); 
 			MatA[i][j] = k-1;
 			MatX[i][j] = v;
@@ -62,47 +62,47 @@ void readValue(char *fn1)
 /*-----------------------------------------------------------------------------------*/	
 
 /*	------------------------------------------------------
-	i �͈ȉ��𖞂������R���ł���
-	0 <= i <= ������
+	i は以下を満たす自然数である
+	0 <= i <= 文書数
 	
-	VecA[i]�ɂ͈ȉ��̃f�[�^���i�[����
-	VecA[i] : ��̕����̒P�ꐔ �E�E�E (A)
-	
-	------------------------------------------------------
-	j �͈ȉ��𖞂������R���ł���
-	0 <= j <= VecA�̗v�f��
-	
-	MatA[i][j], MatX[i][j]�͎��̂悤�ɒ�`����
-	MatA[i][j] : ��̕����ɏo�������̒P��̒P��ID �E�E�E (B)
-	MatX[i][j] : MatA[i][j]�̏o����
-	
-	(A),(B)���AVecA�̗v�f�� == j�̗v�f�� �ł���
+	VecA[i]には以下のデータを格納する
+	VecA[i] : 一つの文書の単語数 ・・・ (A)
 	
 	------------------------------------------------------
-	�� : ������ == 7367, �ŏ��̕����ɂ���P�ꐔ == 177 �̏ꍇ
+	j は以下を満たす自然数である
+	0 <= j <= VecAの要素数
 	
-	MatA[i], MatX[i]�ɂ�����i�͈̔�       : 0 �` 7366
-	MatA[i][j], MatX[i][j]�ɂ�����j�͈̔� : 0 �` 176
+	MatA[i][j], MatX[i][j]は次のように定義する
+	MatA[i][j] : 一つの文書に出現する一つの単語の単語ID ・・・ (B)
+	MatX[i][j] : MatA[i][j]の出現回数
+	
+	(A),(B)より、VecAの要素数 == jの要素数 である
 	
 	------------------------------------------------------
-	k,v �Ɏ��̒l���i�[����
+	例 : 文書数 == 7367, 最初の文書にある単語数 == 177 の場合
 	
-	k = �P��ID
-	v = �o����
+	MatA[i], MatX[i]におけるiの範囲       : 0 ～ 7366
+	MatA[i][j], MatX[i][j]におけるjの範囲 : 0 ～ 176
+	
+	------------------------------------------------------
+	k,v に次の値を格納する
+	
+	k = 単語ID
+	v = 出現回数
 	
 	-------------------------------------------------------
-	�� : �P��ID == 47618, �o���� == 6 �̏ꍇ
+	例 : 単語ID == 47618, 出現回数 == 6 の場合
 	
 	k = 47618
 	v = 6
 	
 	-------------------------------------------------------
-	�]���āA��̔C�ӂ̒P���word�Ƃ���ƁAMatA,MatX�ɂ͎��̒l���i�[�����
+	従って、一つの任意の単語をwordとすると、MatA,MatXには次の値が格納される
 	
-	MatA[i][j] = word�̒P��ID
-	MatX[i][j] = word�̏o���� �E�E�E (C)
+	MatA[i][j] = wordの単語ID
+	MatX[i][j] = wordの出現回数 ・・・ (C)
 	
-	(C)���A MatX �� TF-IDF �� TF �ł���
+	(C)より、 MatX は TF-IDF の TF である
 	
 	-------------------------------------------------------
 */
@@ -111,7 +111,7 @@ void readValue(char *fn1)
 }
 
 
-/*uid.txt�̓��e��ǂݍ���*/
+/*uid.txtの内容を読み込む*/
 void readName(char *fn1)
 {
 	FILE	*fp;
@@ -124,7 +124,7 @@ void readName(char *fn1)
 		exit(1);
 	}
 /*-----------------------------------------------------------------------------------*/	
-//	�z��̃T�C�Y�����蓖�Ă�(N�͕�����)
+//	配列のサイズを割り当てる(Nは文書数)
 	VecC = (int *)   malloc(sizeof(int)*N);
 	MatN = (char **) malloc(sizeof(char *)*N);
 	
@@ -132,8 +132,8 @@ void readName(char *fn1)
 	for(i = 0; i < N; i++){
 		fscanf(fp, "%d ", &VecC[i]);
 /*		
-		VecC�ɂ̓J�e�S���[�ԍ�1�`8���i�[�����
-		�ȉ��ɃJ�e�S���[�ƃJ�e�S���[�ԍ��̑Ή�������
+		VecCにはカテゴリー番号1～8が格納される
+		以下にカテゴリーとカテゴリー番号の対応を示す
 		
 		1 dokujo-tsushin
 		2 it-life-hack
@@ -153,13 +153,13 @@ void readName(char *fn1)
 		}
 		MatN[i][j] = '\0'; 
 /*		
-		i,j �͈ȉ��𖞂������R���ł���
+		i,j は以下を満たす自然数である
 		0 <= i <= 7367
 		0 <= j <= 8192
 		
-		MatN �ɂ͈ȉ��̃f�[�^���i�[����
-		MatN[i]    : �t�@�C����
-		MatN[i][j] : �t�@�C�����̈ꕶ��
+		MatN には以下のデータを格納する
+		MatN[i]    : ファイル名
+		MatN[i][j] : ファイル名の一文字
 */
 	}
 /*-----------------------------------------------------------------------------------*/	
@@ -172,14 +172,14 @@ void initData()
 {
 	int	i, j;
 /*------------------------------------------------------------------------*/	
-//	�z��̃T�C�Y�����蓖�Ă�
+//	配列のサイズを割り当てる
 	VecB = (int *)     malloc(sizeof(int)*V);
 	MatB = (int **)    malloc(sizeof(int *)*V);
 	MatY = (double **) malloc(sizeof(double *)*V);
 	
 /*	
-	V�͑S�����̑��P�ꐔ�ł���AreadValue���ŏ�������Ă���B
-	�|�C���^�ŏ������Ă���̂łǂ̊֐�����ł��Q�Ɖ\�ł���B
+	Vは全文書の総単語数であり、readValue内で処理されている。
+	ポインタで処理しているのでどの関数からでも参照可能である。
 */
 	
 /*------------------------------------------------------------------------*/
@@ -191,18 +191,18 @@ void initData()
 			VecB[MatA[i][j]]++;
 	}
 	 
-/*	�J��Ԃ�����
+/*	繰り返し条件
 	
-	    i < N ���� j < VecA[i] �̏ꍇ
-	               ��
-	i < ������  ���� j < ��̕��͂̒P�ꐔ �̏ꍇ
-	               ��
-	         VecB[�P��ID]��1���Z 
+	    i < N かつ j < VecA[i] の場合
+	               ↓
+	i < 文書数  かつ j < 一つの文章の単語数 の場合
+	               ↓
+	         VecB[単語ID]に1加算 
 		   
-	VecB : ��̔C�ӂ̒P�ꂪ���̕��͂ɏo������̂����L�^����
+	VecB : 一つの任意の単語が何個の文章に出現するのかを記録する
 	
 /*------------------------------------------------------------------------*/
-// 	MatB,MatY�̗v�f�Ƀ����������蓖�Ă�
+// 	MatB,MatYの要素にメモリを割り当てる
 	for(j = 0; j < V; j++){ 
 		MatB[j] = (int *)    malloc(sizeof(int)*VecB[j]); 
 		MatY[j] = (double *) malloc(sizeof(double)*VecB[j]); 
@@ -216,21 +216,21 @@ void initData()
 		VecC[i]--; 
 	}
 	
-//	MatQ�Ƀ����������蓖�Ă�
+//	MatQにメモリを割り当てる
 	MatQ = (int **) malloc(sizeof(int *)*C);
 	for(i = 0; i < C; i++){ 
 		MatQ[i] = (int *) malloc(sizeof(int)*C); 
 		for(j = 0; j < C; j++) MatQ[i][j] = 0; 
 	}
 	
-//	VecW, VecZ�Ƀ����������蓖�Ă�
+//	VecW, VecZにメモリを割り当てる
 	VecW = (double *) malloc(sizeof(double)*V);
 	VecZ = (double *) malloc(sizeof(double)*N);
 /*-------------------------------------------------------------------------*/	
 }
 
 
-/*TF-IDF���v�Z����*/
+/*TF-IDFを計算する*/
 void calTFIDF(char *fn1)
 {
 	int	   i, j;
@@ -239,70 +239,70 @@ void calTFIDF(char *fn1)
 	fp1 = fopen(fn1, "w"); 
 	
 /*------------------------------------------------------------------------*/
-//	IDF �̌v�Z
+//	IDF の計算
 	for(j = 0, v = log(1.0*N); j < V; j++) 
 		VecW[j] = v;
 	
 	for(j = 0; j < V; j++) 
 		VecW[j] -= log(1.0*VecB[j]);
 /*	
-	VecW[j]��log(1.0*N)����
-	         ��
-	j < v �̏ꍇ
-	VecW[j]����log(1.0*VecB)�����Z
+	VecW[j]にlog(1.0*N)を代入
+	         ↓
+	j < v の場合
+	VecW[j]からlog(1.0*VecB)を減算
 	
-	log�̊��Z���A���Z���J��Ԃ����ƂŎ������Ă���
-	IDF = log(1.0*N) / �P��word�̏o����
+	logの割算を、減算を繰り返すことで実現している
+	IDF = log(1.0*N) / 単語wordの出現回数
 */
 /*------------------------------------------------------------------------*/
 	int z, count = 0;
 	
-//	�S�����̃R�T�C���ގ��x���v�Z(�����̌v�Z��F�X�������Č����񍐂��� �� �������ނɓK�����v�Z���@�𕪐͂���)
+//	全文書のコサイン類似度を計算(ここの計算を色々いじって研究報告する → 文書分類に適した計算方法を分析する)
 	for(i = 0; i < N; i++)
 	{
-//		TF-IDF �̌v�Z
+//		TF-IDF の計算
 		for(j = 0; j < VecA[i]; j++) 
 			MatX[i][j] *= VecW[MatA[i][j]];
 /*		
-		j < ��̕������̒P�ꐔ �̏ꍇ
-		MatX[i][j] �� VecW[MatA[i][j]] ����Z
-		              ��  
-		    �P��̏o���� * VecW[�P��ID]
-			          ��
+		j < 一つの文書中の単語数 の場合
+		MatX[i][j] に VecW[MatA[i][j]] を乗算
+		              ↓  
+		    単語の出現回数 * VecW[単語ID]
+			          ↓
 			       TF * IDF    
 		
-		������AMatX �� TF-IDF �ƂȂ�
+		これより、MatX は TF-IDF となる
 */
 
-//		TF-IDF ���L�^
+//		TF-IDF を記録
 		fprintf(fp1, "%s ", MatN[i]);
 		for(j = 0; j < VecA[i]; j++) 
 			fprintf(fp1, "%d:%e ", MatA[i][j]+1, MatX[i][j]); 
 		fprintf(fp1, "\n");
 
-//		�J��Ԃ�(j < ��̕������̒P�ꐔ)
+//		繰り返し(j < 一つの文書中の単語数)
 		for(j = 0, v = 0.0; j < VecA[i]; j++) 
 			v += MatX[i][j] * MatX[i][j];
 
-/*		j < ��̕������̒P�ꐔ �܂ŌJ��Ԃ�
+/*		j < 一つの文書中の単語数 まで繰り返し
 		
-		      v �� TF-IDF * TF-IDF �����Z
-		                 ��
+		      v に TF-IDF * TF-IDF を加算
+		                 ↓
 		   v = v + MatX[i][j] * MatX[i][j]
 */
 		
-//		�J��Ԃ�(j < ��̕������̒P�ꐔ)
+//		繰り返し(j < 一つの文書中の単語数)
 		for(j = 0, v = 1.0/sqrt(v); j < VecA[i]; j++) 
 			MatX[i][j] *= v;
 
 /*		v = 1.0/sqrt(TF-IDF*TF-IDF)
-		j < ��̕������̒P�ꐔ �̏ꍇ
+		j < 一つの文書中の単語数 の場合
 		
-		         MatX[i][j](TF-IDF) �� v ����Z
-		                  ��
+		         MatX[i][j](TF-IDF) に v を乗算
+		                  ↓
 		MatX[i][j] = TF-IDF * 1.0/sqrt(TF-IDF*TF-IDF)
-		                ��                    ��
-				    �C�ӂ̒P��              �S�Ă̒P��
+		                ↑                    ↑
+				    任意の単語              全ての単語
 */
 	}
 /*------------------------------------------------------------------------*/
@@ -314,23 +314,23 @@ void calInverted()
 {
 	int	i, j, k;
 	
-//	�J��Ԃ�(j < �S�����̑��P�ꐔ)
+//	繰り返し(j < 全文書の総単語数)
 	for(j = 0; j < V; j++) 
 		VecB[j] = 0; 
 	
-//	�J��Ԃ�(i < ������)
+//	繰り返し(i < 文書数)
 	for(i = 0; i < N; i++)
 	{
-//		�J��Ԃ�(j < �C�ӂ̕����̒P�ꐔ)
+//		繰り返し(j < 任意の文書の単語数)
 		for(j = 0; j < VecA[i]; j++)
 		{
 			k = MatA[i][j]; 
 			MatB[k][VecB[k]]   = i;
 			MatY[k][VecB[k]++] = MatX[i][j];
 
-/*			k = �P��ID
-			MatB[�P��ID][0] = i
-			MatY[�P��ID][1] = TF-IDF �̉��ǒl
+/*			k = 単語ID
+			MatB[単語ID][0] = i
+			MatY[単語ID][1] = TF-IDF の改良値
 */
 		}
 	}
@@ -345,39 +345,39 @@ void calValue(char *fn1, char *fn2)
 	fp1 = fopen(fn1, "w"); 
 	fp2 = fopen(fn2, "w");
 	
-//	�������܂ŌJ��Ԃ�
+//	文書数まで繰り返し
 	for(i = 0; i < N; i++)
 	{
 		w = 0;
 		
-//		�������܂ŌJ��Ԃ�
+//		文書数まで繰り返し
 		for(j = 0; j < N; j++) 
 			VecZ[j] = 0.0; 
 		
-//		�J��Ԃ�(j < �C�ӂ̕����̒P�ꐔ)
+//		繰り返し(j < 任意の文書の単語数)
 		for(j = 0; j < VecA[i]; j++){
 			h = MatA[i][j]; 
 			v = MatX[i][j]; 
-//			h = �P��ID; v = TF-IDF �̉��ǒl
+//			h = 単語ID; v = TF-IDF の改良値
 			
-//			�J��Ԃ�(k < VecB[�P��ID])
+//			繰り返し(k < VecB[単語ID])
 			for(k = 0; k < VecB[h]; k++) 
 				VecZ[MatB[h][k]] += v * MatY[h][k]; 
 /*
-			VecB : ��̔C�ӂ̒P�ꂪ���̕��͂ɏo������̂��o�^����Ă���
-			MatB : i(0 <= i < ������)���o�^����Ă���
-			VecZ : ��̕������̊e�P��̏o���� * TF-IDF �̉��ǒl��P�ꐔ�܂ŌJ��Ԃ����Z����
-			MatY : TF-IDF �̉��ǒl
-			v    : TF-IDF �̉��ǒl
+			VecB : 一つの任意の単語が何個の文章に出現するのか登録されている
+			MatB : i(0 <= i < 文書数)が登録されている
+			VecZ : 一つの文書中の各単語の出現回数 * TF-IDF の改良値を単語数まで繰り返し加算する
+			MatY : TF-IDF の改良値
+			v    : TF-IDF の改良値
 			
-			VecZ[MatB[h][k]] += �o���� * TF-IDF �̉��ǒl
+			VecZ[MatB[h][k]] += 出現回数 * TF-IDF の改良値
 */
 		}
 		
-//		�J��Ԃ�(k < 2)
+//		繰り返し(k < 2)
 		for(k = 0; k < K; k++){
 		
-//			�J��Ԃ�(j < ������)
+//			繰り返し(j < 文書数)
 			for(j = h = 0, v = 0.0; j < N; j++)
 			{
 				if(VecZ[j] > v)
@@ -387,16 +387,16 @@ void calValue(char *fn1, char *fn2)
 				}
 			}
 /*
-			VecZ[j] > v �̏ꍇ (�����̍ő�l���l���傫��)
+			VecZ[j] > v の場合 (既存の最大値より値が大きい)
 			
-			v�@�̒l�� VecZ[j] �ɂ��� (�ő�l���X�V)
-			h �̒l�� j ����        (���ސ��j�ɕύX)
+			v　の値を VecZ[j] にする (最大値を更新)
+			h の値を j する        (分類先をjに変更)
 */
 			
-//			�ߎ��x������������nnsk02.txt�ɋL�^
+//			近似度が高い文書をnnsk02.txtに記録
 			fprintf(fp1, "%d %e %s, ", h+1, v, MatN[h]); 
 			
-//			�J�e�S���[����
+//			カテゴリー分類
 			if(k > 0) 
 				MatQ[VecC[i]][VecC[h]] += 1; 
 			
@@ -407,12 +407,12 @@ void calValue(char *fn1, char *fn2)
 		}
 		fprintf(fp1, "\n"); 
 		
-//		�������x���Ɠ����J�e�S���[�ɕ��ނł��Ȃ������t�@�C����classification.txt�ɋL�^
+//		正解ラベルと同じカテゴリーに分類できなかったファイルをclassification.txtに記録
 		if(w < 0.5) 
 			fprintf(fp2, "%d %s\n", VecC[i]+1, MatN[i]); 
 	}
 
-//	�R���t���[�W�����}�g���N�X���쐬����
+//	コンフュージョンマトリクスを作成する
 	printf("Confusion matrix\n"); 
 	printf("\t"); 
 	
@@ -433,7 +433,7 @@ void calValue(char *fn1, char *fn2)
 		printf("\n"); 
 	}
 	
-//	���������v�Z����
+//	正答率を計算する
 	for(k = 0, v = 0.0; k < C; k++) 
 		v += MatQ[k][k]; 
 	
@@ -444,21 +444,22 @@ void calValue(char *fn1, char *fn2)
 
 void main(int argc, char **argv)
 {
-	readValue(argv[1]);			//������lbl.txt
-	readName(argv[2]); 			//������uid.txt
+	readValue(argv[1]);			//引数はlbl.txt
+	readName(argv[2]); 			//引数はuid.txt
 	initData(); 
-	calTFIDF(argv[3]);          //������tf-idf.txt
+	calTFIDF(argv[3]);          //引数はtf-idf.txt
 	calInverted(); 
-	K = atoi(argv[4]);			//������2
-	calValue(argv[5], argv[6]); //������nnsk02.txt, miss_uid.txt
+	K = atoi(argv[4]);			//引数は2
+	calValue(argv[5], argv[6]); //引数はnnsk02.txt, miss_uid.txt
 }
 
 /*
-���s�R�}���h
+実行コマンド
+cd reserch\AI\AI_models\knn\c_languages
 gcc nnsk2.c -lm -o nnsk2
 ./nnsk2.exe data/lbl.txt data/uid.txt result/tf-idf.txt 2 result/nnsk02.txt data/miss_uid.txt
 
-���s����
+実行結果
 ./nnsk2.exe data/lbl.txt data/uid.txt result/tf-idf.txt 2 result/nnsk02.txt data/miss_uid.txt
 7367 90859 1
 7367
