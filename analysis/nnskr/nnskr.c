@@ -1,3 +1,4 @@
+/* コーディングを研究室で指定されてる書き方に統一 */
 #include	<stdio.h>
 #include	<stdlib.h>
 #include	<math.h>
