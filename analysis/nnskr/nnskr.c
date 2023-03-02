@@ -3,7 +3,7 @@
 #include	<math.h>
 
 char	 *VecN, **MatN;
-int		  Dm, Dn, Dk, *VecA, **MatA, *VecB, **MatB, *VecC, *VecI, *VecJ;
+int       Dm, Dn, Dk, *VecA, **MatA, *VecB, **MatB, *VecC, *VecI, *VecJ;
 double	**MatX, **MatY, *VecX, *VecZ, *VecV, *VecW;
 
 void readValue(char *fn1)
